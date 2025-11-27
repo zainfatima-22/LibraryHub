@@ -1,73 +1,80 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<p align="center">
+  <a href="https://laravel.com" target="_blank">
+    <img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="300" alt="Laravel Logo">
+  </a>
+</p>
 
-📚 Library Management System
+# 📚 Library Management System
 
-A clean and modern Laravel-based system to manage books, users, borrowing, reservations, and library operations.
+A **modern Laravel system** to manage books, users, loans, reservations, fines, and all library operations — built with best practices for maintainability and scalability.
 
-🚀 What This Project Includes
+---
 
-🔐 Sanctum — Token-based API authentication
+## 🚀 Features at a Glance
 
-🛡️ Spatie Roles & Permissions — Admin, Librarian, Member
+* 🔐 **Sanctum** — Token-based API authentication
+* 🛡️ **Roles & Permissions** — Admin, Librarian, Member (Spatie)
+* 📘 **Books & Authors** — Categories, publishers, multi-author support
+* 🔄 **Borrowing System** — Borrow, return, renew, overdue detection
+* 📝 **Reservation Queue** — Automatic waiting list & notifications
+* 💳 **Fines & Payments** — Auto fine calculation and tracking
+* 📊 **Activity Logs** — Track all critical actions
+* ⚡ **Queues & Jobs** — Laravel Horizon
+* 🔍 **Debugging** — Laravel Telescope
+* 📄 **API Documentation** — Scribe
 
-📘 Books & Authors — Categories, publishers, multi-author support
+---
 
-🔄 Borrowing System — Loans, returns, renewals
+## 🔥 Core Modules
 
-📝 Reservations — Automatic queue for unavailable books
+### 👤 User Management
 
-💳 Fines & Payments — Auto fine calculation for overdue books
+* Roles: Admin, Librarian, Member
+* Permissions managed via Spatie
+* Secure API authentication with Sanctum
 
-📊 Activity Logs — Track who did what
+### 📚 Book Management
 
-⚡ Horizon for queues + 🔍 Telescope for debugging
+* Manage books, authors, categories, publishers
+* Track physical book copies
+* Support multiple authors per book
 
-📄 Scribe API Docs
+### 🔄 Loan System
 
-Built with Laravel 11, MySQL, Blade, and clean coding best practices.
+* Borrow, return, and renew books
+* Automatically detect overdue loans
+* Generate fines for late returns
 
-🔥 Core Features
+### 📝 Reservations
 
-👤 User Management
+* Reserve books when unavailable
+* Automatic queue system
+* Notifications for next member in line
 
-Admin, Librarian & Member roles
+### 💳 Fines & Payments
 
-Permissions handled via Spatie
+* Automatic fine generation
+* Payment tracking and status updates
 
-Sanctum token-based API authentication
+### 📊 Activity Logs
 
-📚 Book Management
+* Track every important action
+* Useful for auditing and monitoring system usage
 
-Books, authors, categories, publishers
+---
 
-Book copies tracking (physical items)
+## 🛠️ Tech Stack
 
-Multi-author support
+| Layer         | Technology                            |
+| ------------- | ------------------------------------- |
+| Framework     | Laravel 11                            |
+| Auth          | Sanctum (token-based)                 |
+| Authorization | Spatie Roles & Permissions + Policies |
+| Queue         | Laravel Horizon                       |
+| Debugging     | Laravel Telescope                     |
+| API Docs      | Scribe                                |
+| Database      | MySQL                                 |
+| Frontend      | Blade (optional SPA later)            |
 
-🔄 Loan System
+---
 
-Borrow, return & renew books
-
-Overdue detection
-
-Automatic fines for late returns
-
-📝 Reservation Queue
-
-Members can reserve books
-
-Automatic queue system when all copies are borrowed
-
-Priority notification for next member
-
-💳 Fines & Payments
-
-Automatic fine generation
-
-Payment tracking
-
-📊 Activity Logs
-
-Tracks every important action
-
-Useful for audit trails
