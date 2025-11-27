@@ -39,7 +39,7 @@ A **modern Laravel system** to manage books, users, loans, reservations, fines, 
 * Track physical book copies
 * Support multiple authors per book
 
-### 🔄 Loan System
+### 🔄 Borrow/Loan System
 
 * Borrow, return, and renew books
 * Automatically detect overdue loans
