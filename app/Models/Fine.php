@@ -9,11 +9,11 @@ class Fine extends Model
 {
     /** @use HasFactory<\Database\Factories\FineFactory> */
     use HasFactory;
-    protected $fillable = ['loan_id', 'user_id', 'amount', 'reason', 'status'];
+    protected $fillable = ['user_id','borrow_id','amount','reason','status'];
 
-    public function loan()
+    public function borrow()
     {
-        return $this->belongsTo(Loan::class);
+        return $this->belongsTo(BookUser::class, 'borrow_id');
     }
 
     public function user()

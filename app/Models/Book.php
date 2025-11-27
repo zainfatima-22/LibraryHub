@@ -11,8 +11,14 @@ class Book extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'isbn', 'description', 'category_id', 'publisher_id', 'published_year'
+        'image', 'title', 'isbn', 'description', 'category_id', 'publisher_id', 'published_year'
     ];
+
+    public function borrows()
+    {
+        return $this->hasMany(BookUser::class, 'borrowable_id')
+                    ->where('borrowable_type', Book::class);
+    }
 
     public function category()
     {
@@ -26,12 +32,7 @@ class Book extends Model
 
     public function authors()
     {
-        return $this->belongsToMany(Author::class, 'book_author');
-    }
-
-    public function copies()
-    {
-        return $this->hasMany(BookCopy::class);
+        return $this->belongsToMany(Author::class, 'Author');
     }
 
     public function reservations()
