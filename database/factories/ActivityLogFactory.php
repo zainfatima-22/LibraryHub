@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,15 +10,18 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class ActivityLogFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
+    protected $model = ActivityLog::class;
+
+    public function definition()
     {
         return [
-            //
+            'user_id' => User::factory(),
+            'action' => $this->faker->randomElement(['created','updated','deleted']),
+            'table_name' => $this->faker->word,
+            'record_id' => $this->faker->randomNumber(),
+            'before_data' => null,
+            'after_data' => null,
         ];
     }
 }
+
