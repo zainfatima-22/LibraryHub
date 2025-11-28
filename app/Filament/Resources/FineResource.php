@@ -21,23 +21,52 @@ class FineResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                //
-            ]);
+        return $form->schema([
+            Forms\Components\Select::make('user_id')
+                ->relationship('user', 'name')
+                ->searchable()
+                ->required(),
+
+            Forms\Components\TextInput::make('amount')->numeric()->required(),
+
+            Forms\Components\TextInput::make('reason')->required(),
+
+            Forms\Components\Select::make('status')
+                ->options([
+                    'unpaid' => 'Unpaid',
+                    'paid' => 'Paid',
+                ])
+                ->required(),
+        ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('id'),
+                Tables\Columns\TextColumn::make('user.name')->label('User'),
+                Tables\Columns\TextColumn::make('amount')->money('USD'),
+                Tables\Columns\TextColumn::make('reason'),
+                Tables\Columns\BadgeColumn::make('status')
+                    ->colors([
+                        'danger' => 'unpaid',
+                        'success' => 'paid',
+                    ]),
+                Tables\Columns\TextColumn::make('created_at')->dateTime(),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('markPaid')
+                    ->label('Mark as Paid')
+                    ->action(function ($record) {
+                        $record->update(['status' => 'paid']);
+                    })
+                    ->requiresConfirmation()
+                    ->visible(fn ($record) => $record->status !== 'paid'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -62,3 +91,4 @@ class FineResource extends Resource
         ];
     }
 }
+

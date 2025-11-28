@@ -23,7 +23,15 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name')->required(),
+                Forms\Components\TextInput::make('email')->email()->required(),
+                Forms\Components\TextInput::make('password')->password()->required(),
+                Forms\Components\Select::make('status')
+                    ->options([
+                        'active' => 'Active',
+                        'blocked' => 'Blocked',
+                    ])
+                    ->required(),
             ]);
     }
 
@@ -31,13 +39,30 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('id'),
+                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('email'),
+                Tables\Columns\BadgeColumn::make('status')
+                    ->colors([
+                        'success' => 'active',
+                        'danger' => 'blocked',
+                    ]),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('unblock')
+                    ->label('Unblock User')
+                    ->action(function ($record) {
+                        $record->update([
+                            'status' => 'active',
+                            'blocked_count' => 0,
+                        ]);
+                    })
+                    ->requiresConfirmation()
+                    ->visible(fn ($record) => $record->status === 'blocked'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

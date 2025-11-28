@@ -14,14 +14,12 @@ return new class extends Migration
         Schema::create('book_user', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->unsignedBigInteger('borrowable_id'); // book, magazine, manga etc
-            $table->string('borrowable_type');
+            $table->morphs('borrowable');
             $table->timestamp('borrowed_at');
             $table->timestamp('due_date');
             $table->timestamp('returned_at')->nullable();
             $table->enum('status', ['borrowed', 'returned', 'overdue'])->default('borrowed');
             $table->timestamps();
-
             $table->index(['borrowable_id', 'borrowable_type']);
         });
     }
