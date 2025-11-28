@@ -12,7 +12,9 @@ class BorrowOverview extends LineChartWidget
     // Change subtitle for context
     protected static ?string $description = 'Books borrowed over the last 30 days, aggregated by day.';
     // Set a custom primary color for the chart
-    
+    protected int | string | array $columnSpan = [
+        'xl' => 2,
+    ];
 
     protected function getData(): array
     {
@@ -48,7 +50,6 @@ class BorrowOverview extends LineChartWidget
             'scales' => [
                 'y' => [
                     'beginAtZero' => true,
-                    // Remove grid lines on the y-axis for a cleaner look
                     'grid' => [
                         'display' => false, 
                     ],
@@ -56,12 +57,12 @@ class BorrowOverview extends LineChartWidget
             ],
             'plugins' => [
                 'legend' => [
-                    'display' => false, // Often cleaner to remove legend for single datasets
+                    'display' => false, 
                 ],
             ],
             'elements' => [
                 'point' => [
-                    'radius' => 0, // Hide points for a smoother line
+                    'radius' => 0, 
                 ],
             ],
         ];

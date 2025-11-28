@@ -14,25 +14,21 @@ class Dashboard extends BaseDashboard
     // 1. Define a responsive column grid
     public function getColumns(): int | string | array
     {
+        // This tells Filament to use a 3-column grid on large screens
         return [
             'default' => 1,
-            'md' => 2, // Two columns on medium screens
-            'xl' => 3, // Three columns on extra-large screens
+            'md' => 2,
+            'xl' => 3, 
         ];
     }
     
     // 2. Define the widgets and their placement
-    public function getWidgets(): array
+    public function getVisibleWidgets(): array
     {
         return [
-            // Stats should always span the full width for prominence
-            LibraryStats::class, // Assuming this is your Stats Overview Widget
-
-            // Line chart takes a larger horizontal space (e.g., 2/3)
+            LibraryStats::class,
             BorrowOverview::class,
-
-            // Pie chart fits nicely in the remaining space (e.g., 1/3)
             FineStats::class,
         ];
     }
-}
+}         

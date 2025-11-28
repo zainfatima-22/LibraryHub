@@ -7,6 +7,7 @@ use Filament\Widgets\PieChartWidget;
 
 class FineStats extends PieChartWidget
 {
+    protected int | string | array $columnSpan = 'full';
     protected static ?string $heading = 'Fine Status Distribution';
     protected static ?string $description = 'Proportion of paid vs. unpaid fines.';
     // Set a neutral widget color
