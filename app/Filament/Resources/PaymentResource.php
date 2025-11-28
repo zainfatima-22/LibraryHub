@@ -21,17 +21,27 @@ class PaymentResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                //
-            ]);
+        return $form->schema([
+            Forms\Components\Select::make('fine_id')
+                ->relationship('fine', 'id')
+                ->required(),
+            Forms\Components\TextInput::make('amount')
+                ->numeric()
+                ->required(),
+            Forms\Components\DatePicker::make('paid_at')
+                ->default(now())
+                ->required(),
+        ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('id'),
+                Tables\Columns\TextColumn::make('fine.id')->label('Fine ID'),
+                Tables\Columns\TextColumn::make('amount')->money('USD', true),
+                Tables\Columns\TextColumn::make('paid_at')->dateTime(),
             ])
             ->filters([
                 //
@@ -52,6 +62,13 @@ class PaymentResource extends Resource
             //
         ];
     }
+    protected static function afterCreate($payment)
+    {
+        $fine = $payment->fine;
+        if ($fine && $fine->status !== 'paid') {
+            $fine->update(['status' => 'paid']);
+        }
+    }
 
     public static function getPages(): array
     {
@@ -61,4 +78,5 @@ class PaymentResource extends Resource
             'edit' => Pages\EditPayment::route('/{record}/edit'),
         ];
     }
+    
 }

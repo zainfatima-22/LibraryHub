@@ -21,17 +21,38 @@ class ReservationResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                //
-            ]);
+        return $form->schema([
+            Forms\Components\Select::make('user_id')
+                ->relationship('user', 'name')
+                ->searchable()
+                ->required(),
+            Forms\Components\Select::make('book_id')
+                ->relationship('book', 'title')
+                ->searchable()
+                ->required(),
+            Forms\Components\Select::make('status')
+                ->options([
+                    'active' => 'Active',
+                    'done' => 'Done',
+                    'cancelled' => 'Cancelled',
+                ])
+                ->required(),
+        ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('id'),
+                Tables\Columns\TextColumn::make('user.name'),
+                Tables\Columns\TextColumn::make('book.title'),
+                Tables\Columns\BadgeColumn::make('status')
+                    ->colors([
+                        'primary' => 'active',
+                        'success' => 'done',
+                        'danger' => 'cancelled',
+                    ]),
             ])
             ->filters([
                 //

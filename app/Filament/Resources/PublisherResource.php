@@ -23,7 +23,8 @@ class PublisherResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name')->required(),
+                Forms\Components\TextInput::make('address')->nullable(),
             ]);
     }
 
@@ -31,7 +32,8 @@ class PublisherResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('id'),
+                Tables\Columns\TextColumn::make('name'),
             ])
             ->filters([
                 //

@@ -17,4 +17,13 @@ class Payment extends Model
     {
         return $this->belongsTo(Fine::class);
     }
+    protected static function booted()
+    {
+        static::created(function ($payment) {
+            $fine = $payment->fine;
+            if ($fine && $payment->amount >= $fine->amount) {
+                $fine->update(['status' => 'paid']);
+            }
+        });
+    }
 }
