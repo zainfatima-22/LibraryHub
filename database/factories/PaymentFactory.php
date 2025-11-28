@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Fine;
+use App\Models\Payment;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,15 +11,16 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class PaymentFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
+    protected $model = Payment::class;
+
+    public function definition()
     {
         return [
-            //
+            'fine_id' => Fine::factory(),
+            'amount' => $this->faker->randomFloat(2, 1, 50),
+            'method' => $this->faker->randomElement(['cash','card','bank']),
+            'paid_at' => now(),
         ];
     }
 }
+

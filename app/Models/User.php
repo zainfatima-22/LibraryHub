@@ -15,8 +15,7 @@ class User extends Authenticatable
     protected $fillable = ['name','email','password','status','blocked_count'];
 
     protected $hidden = [
-        'password',
-        'remember_token',
+        'password'
     ];
 
     // Relationships
