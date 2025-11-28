@@ -11,17 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-       Schema::create('fines', function (Blueprint $table) {
+        Schema::create('fines', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('loan_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('borrow_id')->constrained('book_user')->cascadeOnDelete();
             $table->decimal('amount', 8, 2);
             $table->text('reason')->nullable();
-            $table->enum('status', ['unpaid','paid'])->default('unpaid');
+            $table->enum('status', ['unpaid', 'paid'])->default('unpaid');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */

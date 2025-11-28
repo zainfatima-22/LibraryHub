@@ -16,11 +16,11 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            //$table->enum('role', ['admin', 'librarian', 'member'])->default('member');
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->enum('status', ['active', 'blocked'])->default('active');
+            $table->unsignedTinyInteger('blocked_count')->default(0);
             $table->timestamps();
         });
-
+        
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
